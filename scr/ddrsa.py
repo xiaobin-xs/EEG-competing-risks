@@ -3,6 +3,7 @@ import torch
 import numpy as np
 from utils import create_nn
 
+
 class DDRSA(nn.Module):
 
 	def __init__(self, input_dim, output_dim, layers_rnn,

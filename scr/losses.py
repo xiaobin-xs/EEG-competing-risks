@@ -4,6 +4,7 @@ Largely adapted from the PyTorch implementation of Dynamic DeepHit: https://gith
 
 import torch
 
+
 def negative_log_likelihood(outcomes, cif, t, e):
     """
         Compute the log likelihood loss 
