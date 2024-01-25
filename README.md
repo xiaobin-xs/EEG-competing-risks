@@ -1,15 +1,16 @@
-# DynamicDeepHit
-This repository is a Pytorch implementation of the paper :  [Dynamic Deep Hit](https://ieeexplore.ieee.org/document/8681104). Original implementation in Tensorflow can be found at [chl8856/Dynamic-DeepHit](https://github.com/chl8856/Dynamic-DeepHit).
+# Neurological Prognostication of Post-Cardiac-Arrest Coma Patients Using EEG Data: A Dynamic Survival Analysis Framework with Competing Risks
+This repository contains the code for the manuscript *Neurological Prognostication of Post-Cardiac-Arrest Coma Patients Using EEG Data: A Dynamic Survival Analysis Framework with Competing Risks*.
 
+The code structure is largely adpated from the repo for the [PyTorch implementation](https://github.com/Jeanselme/DynamicDeepHit) of the [Dynamic-DeepHit](https://ieeexplore.ieee.org/document/8681104) model.
 
-The code is based on the [Deep Survival Machines repository](https://github.com/autonlab/DeepSurvivalMachines) and use a similar module structure.
-
-
-### Code Description
-All the code related to Dynamic Deep Hit is loacted in `ddh`. Only API should be used for application.
-
-An example is available in the `examples` folder.
-
-## TODOs
-- Full documentation
-- Further testing to ensure the model is reproducing the original paper's performance
+### Baselines
+- Fine and Gray competing risks model, 1999.
+    - R code for running the model: [cif-fine-and-gray.Rmd](https://github.com/xiaobin-xs/EEG-competing-risks/blob/master/cif-fine-and-gray.Rmd)
+- Dynamic-FeepHit, 2019
+    - Original implementation in Tensorflow; PyTorch implementation available at [https://github.com/Jeanselme/DynamicDeepHit](https://github.com/Jeanselme/DynamicDeepHit)
+    - Our implementation combines the two versions, see files under the directory [ddh/](https://github.com/xiaobin-xs/EEG-competing-risks/tree/master/ddh)
+    - To train and evaluate the model with single event, two competing risks, and three competing risks, see [examples/DDH-Torch-cr1.ipynb](https://github.com/xiaobin-xs/EEG-competing-risks/blob/master/examples/DDH-Torch-cr1.ipynb), [examples/DDH-Torch-cr2.ipynb](https://github.com/xiaobin-xs/EEG-competing-risks/blob/master/examples/DDH-Torch-cr2.ipynb), [examples/DDH-Torch-cr3.ipynb](https://github.com/xiaobin-xs/EEG-competing-risks/blob/master/examples/DDH-Torch-cr3.ipynb)
+    - To get the visualization in the manuscript, see [examples/eval-ddh.ipynb](https://github.com/xiaobin-xs/EEG-competing-risks/blob/master/examples/eval-ddh.ipynb)
+- dynamic deep recurrent survival analysis (DDRSA), 2022
+    - No implementation by the original author; see [ddh/ddrsa.py](https://github.com/xiaobin-xs/EEG-competing-risks/blob/master/ddh/ddrsa.py) for our implementation of the model architecture
+    - To train and evaluate the model with three competing risks, see [examples/ddrsa-cr3.ipynb](https://github.com/xiaobin-xs/EEG-competing-risks/blob/master/examples/ddrsa-cr3.ipynb) and [examples/eval-ddrsa.ipynb](https://github.com/xiaobin-xs/EEG-competing-risks/blob/master/examples/eval-ddrsa.ipynb)
