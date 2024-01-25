@@ -1,5 +1,5 @@
 '''
-Largely adapted from the original implementation of Dynamic DeepHit: https://github.com/chl8856/Dynamic-DeepHit
+Largely adapted from the PyTorch implementation of Dynamic DeepHit: https://github.com/Jeanselme/DynamicDeepHit
 '''
 
 import torch
