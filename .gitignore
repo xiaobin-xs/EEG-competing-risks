@@ -1,3 +1,6 @@
 *.csv
 *.pickle
 examples/runs/*
+.ipynb_checkpoints/*
+ddh/.ipynb_checkpoints/*
+ddh/__pycache__/*
