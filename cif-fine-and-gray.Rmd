@@ -1,0 +1,215 @@
+---
+title: "cif-fine-and-gray"
+output: html_document
+date: "2023-04-20"
+---
+
+```{r setup, include=FALSE}
+library(cmprsk)
+dt <- read.csv("EEG_last_step.csv")
+dt6 <- read.csv("EEG_hour6.csv")
+dt12 <- read.csv("EEG_hour12.csv")
+```
+
+
+## With last step, train on all data
+``` {r}
+cov <- dt[c("eeg_15", "eeg_21", "eeg_26", "eeg_28", "eeg_32", "eeg_63", "sta_1", "sta_2", "sta_4", "sta_5", "sta_6", "sta_7", "sta_8", "sta_10", "sta_11", "sta_13", "sta_14", "sta_15", "sta_16", "sta_17", "sta_18", "sta_19", "sta_20", "sta_21", "sta_22", "sta_23", "sta_24", "sta_25", "sta_26", "sta_27", "sta_28", "sta_29", "sta_30", "sta_31", "sta_33", "sta_34", "sta_35", "sta_37", "sta_38", "sta_39", "sta_40", "sta_41", "sta_43", "sta_42", "sta_36", "sta_3", "eeg_14", "eeg_57", "eeg_37", "eeg_39")]
+
+fit.crr1 <- crr(dt$timeTo, dt$label, cov1 = cov, failcode=2, cencode=0, maxiter=100, variance=TRUE)
+test.pred1 <- predict(fit.crr1, cov[1,])
+
+test_cif_event1<- data.frame(matrix(nrow = 922, ncol = dim(test.pred1)[1]))
+
+# Add column names
+colnames(test_cif_event1) <- c(test.pred1[, 1])
+
+for (i in 1:922) {
+  test.pred1 <- predict(fit.crr1, cov[i,])
+  test_cif_event1[i,] <- test.pred1[, 2]
+}
+
+write.csv(test_cif_event1, file = "cif_awake.csv", row.names = TRUE)
+```
+
+
+
+``` {r}
+fit.crr1 <- crr(dt$timeTo, dt$label, cov1 = cov, failcode=1, cencode=0, maxiter=100, variance=TRUE)
+test.pred1 <- predict(fit.crr1, cov[1,])
+
+test_cif_event1<- data.frame(matrix(nrow = 922, ncol = dim(test.pred1)[1]))
+
+# Add column names
+colnames(test_cif_event1) <- c(test.pred1[, 1])
+
+for (i in 1:922) {
+  test.pred1 <- predict(fit.crr1, cov[i,])
+  test_cif_event1[i,] <- test.pred1[, 2]
+}
+
+write.csv(test_cif_event1, file = "cif_death.csv", row.names = TRUE)
+```
+
+
+``` {r}
+fit.crr1 <- crr(dt$timeTo, dt$label, cov1 = cov, failcode=3, cencode=0, maxiter=100, variance=TRUE)
+test.pred1 <- predict(fit.crr1, cov[1,])
+
+test_cif_event1<- data.frame(matrix(nrow = 922, ncol = dim(test.pred1)[1]))
+
+# Add column names
+colnames(test_cif_event1) <- c(test.pred1[, 1])
+
+for (i in 1:922) {
+  test.pred1 <- predict(fit.crr1, cov[i,])
+  test_cif_event1[i,] <- test.pred1[, 2]
+}
+
+write.csv(test_cif_event1, file = "cif_withdraw.csv", row.names = TRUE)
+```
+
+## R Markdown
+
+
+```{r cars}
+### on different tra/test splits
+dt_tr = subset(dt, tr_1234 == 1)
+dt_te = subset(dt6, tr_1234 == 0)
+
+dt_tr = subset(dt, tr_1111 == 1)
+dt_te = subset(dt6, tr_1111 == 0)
+
+dt_tr = subset(dt, tr_2222 == 1)
+dt_te = subset(dt6, tr_2222 == 0)
+
+dt_tr = subset(dt, tr_3333 == 1)
+dt_te = subset(dt6, tr_3333 == 0)
+
+dt_tr = subset(dt, tr_4444 == 1)
+dt_te = subset(dt6, tr_4444 == 0)
+
+tr_cov1 <- dt_tr[c("eeg_15", "eeg_21", "eeg_26", "eeg_28", "eeg_32", "eeg_63", "sta_1", "sta_2", "sta_4", "sta_5", "sta_6", "sta_7", "sta_8", "sta_10", "sta_11", "sta_13", "sta_14", "sta_15", "sta_16", "sta_17", "sta_18", "sta_19", "sta_20", "sta_21", "sta_22", "sta_23", "sta_24", "sta_25", "sta_26", "sta_27", "sta_28", "sta_29", "sta_30", "sta_31", "sta_33", "sta_34", "sta_35", "sta_37", "sta_38", "sta_39", "sta_40", "sta_41", "sta_43", "sta_42", "sta_36", "sta_3", "eeg_14", "eeg_57", "eeg_37", "eeg_39")]
+te_cov1 <- dt_te[c("eeg_15", "eeg_21", "eeg_26", "eeg_28", "eeg_32", "eeg_63", "sta_1", "sta_2", "sta_4", "sta_5", "sta_6", "sta_7", "sta_8", "sta_10", "sta_11", "sta_13", "sta_14", "sta_15", "sta_16", "sta_17", "sta_18", "sta_19", "sta_20", "sta_21", "sta_22", "sta_23", "sta_24", "sta_25", "sta_26", "sta_27", "sta_28", "sta_29", "sta_30", "sta_31", "sta_33", "sta_34", "sta_35", "sta_37", "sta_38", "sta_39", "sta_40", "sta_41", "sta_43", "sta_42", "sta_36", "sta_3", "eeg_14", "eeg_57", "eeg_37", "eeg_39")]
+
+fit.crr1 <- crr(dt_tr$timeTo, dt_tr$label, cov1 = tr_cov1, failcode=1, cencode=0, maxiter=100, variance=TRUE)
+fit.crr2 <- crr(dt_tr$timeTo, dt_tr$label, cov1 = tr_cov1, failcode=2, cencode=0, maxiter=100, variance=TRUE)
+fit.crr3 <- crr(dt_tr$timeTo, dt_tr$label, cov1 = tr_cov1, failcode=3, cencode=0, maxiter=100, variance=TRUE)
+test.pred1 <- predict(fit.crr1, te_cov1[1,])
+test.pred2 <- predict(fit.crr2, te_cov1[1,])
+test.pred3 <- predict(fit.crr3, te_cov1[1,])
+
+test_cif_event1<- data.frame(matrix(nrow = 185, ncol = dim(test.pred1)[1]))
+test_cif_event2<- data.frame(matrix(nrow = 185, ncol = dim(test.pred2)[1]))
+test_cif_event3<- data.frame(matrix(nrow = 185, ncol = dim(test.pred3)[1]))
+
+# Add column names
+colnames(test_cif_event1) <- c(test.pred1[, 1])
+colnames(test_cif_event2) <- c(test.pred2[, 1])
+colnames(test_cif_event3) <- c(test.pred3[, 1])
+
+for (i in 1:185) {
+  test.pred1 <- predict(fit.crr1, te_cov1[i,])
+  test.pred2 <- predict(fit.crr2, te_cov1[i,])
+  test.pred3 <- predict(fit.crr3, te_cov1[i,])
+  test_cif_event1[i,] <- test.pred1[, 2]
+  test_cif_event2[i,] <- test.pred2[, 2]
+  test_cif_event3[i,] <- test.pred3[, 2]
+}
+
+
+write.csv(test_cif_event1, file = "test_cif_event1_1234_hour6.csv", row.names = TRUE)
+write.csv(test_cif_event2, file = "test_cif_event2_1234_hour6.csv", row.names = TRUE)
+write.csv(test_cif_event3, file = "test_cif_event3_1234_hour6.csv", row.names = TRUE)
+
+write.csv(test_cif_event1, file = "test_cif_event1_1111_hour6.csv", row.names = TRUE)
+write.csv(test_cif_event2, file = "test_cif_event2_1111_hour6.csv", row.names = TRUE)
+write.csv(test_cif_event3, file = "test_cif_event3_1111_hour6.csv", row.names = TRUE)
+
+write.csv(test_cif_event1, file = "test_cif_event1_2222_hour6.csv", row.names = TRUE)
+write.csv(test_cif_event2, file = "test_cif_event2_2222_hour6.csv", row.names = TRUE)
+write.csv(test_cif_event3, file = "test_cif_event3_2222_hour6.csv", row.names = TRUE)
+
+write.csv(test_cif_event1, file = "test_cif_event1_3333_hour6.csv", row.names = TRUE)
+write.csv(test_cif_event2, file = "test_cif_event2_3333_hour6.csv", row.names = TRUE)
+write.csv(test_cif_event3, file = "test_cif_event3_3333_hour6.csv", row.names = TRUE)
+
+write.csv(test_cif_event1, file = "test_cif_event1_4444_hour6.csv", row.names = TRUE)
+write.csv(test_cif_event2, file = "test_cif_event2_4444_hour6.csv", row.names = TRUE)
+write.csv(test_cif_event3, file = "test_cif_event3_4444_hour6.csv", row.names = TRUE)
+
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+### on different tra/test splits
+dt_tr = subset(dt, tr_1234 == 1)
+dt_te = subset(dt12, tr_1234 == 0)
+
+dt_tr = subset(dt, tr_1111 == 1)
+dt_te = subset(dt12, tr_1111 == 0)
+
+dt_tr = subset(dt, tr_2222 == 1)
+dt_te = subset(dt12, tr_2222 == 0)
+
+dt_tr = subset(dt, tr_3333 == 1)
+dt_te = subset(dt12, tr_3333 == 0)
+
+dt_tr = subset(dt, tr_4444 == 1)
+dt_te = subset(dt12, tr_4444 == 0)
+
+tr_cov1 <- dt_tr[c("eeg_15", "eeg_21", "eeg_26", "eeg_28", "eeg_32", "eeg_63", "sta_1", "sta_2", "sta_4", "sta_5", "sta_6", "sta_7", "sta_8", "sta_10", "sta_11", "sta_13", "sta_14", "sta_15", "sta_16", "sta_17", "sta_18", "sta_19", "sta_20", "sta_21", "sta_22", "sta_23", "sta_24", "sta_25", "sta_26", "sta_27", "sta_28", "sta_29", "sta_30", "sta_31", "sta_33", "sta_34", "sta_35", "sta_37", "sta_38", "sta_39", "sta_40", "sta_41", "sta_43", "sta_42", "sta_36", "sta_3", "eeg_14", "eeg_57", "eeg_37", "eeg_39")]
+te_cov1 <- dt_te[c("eeg_15", "eeg_21", "eeg_26", "eeg_28", "eeg_32", "eeg_63", "sta_1", "sta_2", "sta_4", "sta_5", "sta_6", "sta_7", "sta_8", "sta_10", "sta_11", "sta_13", "sta_14", "sta_15", "sta_16", "sta_17", "sta_18", "sta_19", "sta_20", "sta_21", "sta_22", "sta_23", "sta_24", "sta_25", "sta_26", "sta_27", "sta_28", "sta_29", "sta_30", "sta_31", "sta_33", "sta_34", "sta_35", "sta_37", "sta_38", "sta_39", "sta_40", "sta_41", "sta_43", "sta_42", "sta_36", "sta_3", "eeg_14", "eeg_57", "eeg_37", "eeg_39")]
+
+fit.crr1 <- crr(dt_tr$timeTo, dt_tr$label, cov1 = tr_cov1, failcode=1, cencode=0, maxiter=100, variance=TRUE)
+fit.crr2 <- crr(dt_tr$timeTo, dt_tr$label, cov1 = tr_cov1, failcode=2, cencode=0, maxiter=100, variance=TRUE)
+fit.crr3 <- crr(dt_tr$timeTo, dt_tr$label, cov1 = tr_cov1, failcode=3, cencode=0, maxiter=100, variance=TRUE)
+test.pred1 <- predict(fit.crr1, te_cov1[1,])
+test.pred2 <- predict(fit.crr2, te_cov1[1,])
+test.pred3 <- predict(fit.crr3, te_cov1[1,])
+
+test_cif_event1<- data.frame(matrix(nrow = 185, ncol = dim(test.pred1)[1]))
+test_cif_event2<- data.frame(matrix(nrow = 185, ncol = dim(test.pred2)[1]))
+test_cif_event3<- data.frame(matrix(nrow = 185, ncol = dim(test.pred3)[1]))
+
+# Add column names
+colnames(test_cif_event1) <- c(test.pred1[, 1])
+colnames(test_cif_event2) <- c(test.pred2[, 1])
+colnames(test_cif_event3) <- c(test.pred3[, 1])
+
+for (i in 1:185) {
+  test.pred1 <- predict(fit.crr1, te_cov1[i,])
+  test.pred2 <- predict(fit.crr2, te_cov1[i,])
+  test.pred3 <- predict(fit.crr3, te_cov1[i,])
+  test_cif_event1[i,] <- test.pred1[, 2]
+  test_cif_event2[i,] <- test.pred2[, 2]
+  test_cif_event3[i,] <- test.pred3[, 2]
+}
+
+
+write.csv(test_cif_event1, file = "test_cif_event1_1234_hour12.csv", row.names = TRUE)
+write.csv(test_cif_event2, file = "test_cif_event2_1234_hour12.csv", row.names = TRUE)
+write.csv(test_cif_event3, file = "test_cif_event3_1234_hour12.csv", row.names = TRUE)
+
+write.csv(test_cif_event1, file = "test_cif_event1_1111_hour12.csv", row.names = TRUE)
+write.csv(test_cif_event2, file = "test_cif_event2_1111_hour12.csv", row.names = TRUE)
+write.csv(test_cif_event3, file = "test_cif_event3_1111_hour12.csv", row.names = TRUE)
+
+write.csv(test_cif_event1, file = "test_cif_event1_2222_hour12.csv", row.names = TRUE)
+write.csv(test_cif_event2, file = "test_cif_event2_2222_hour12.csv", row.names = TRUE)
+write.csv(test_cif_event3, file = "test_cif_event3_2222_hour12.csv", row.names = TRUE)
+
+write.csv(test_cif_event1, file = "test_cif_event1_3333_hour12.csv", row.names = TRUE)
+write.csv(test_cif_event2, file = "test_cif_event2_3333_hour12.csv", row.names = TRUE)
+write.csv(test_cif_event3, file = "test_cif_event3_3333_hour12.csv", row.names = TRUE)
+
+write.csv(test_cif_event1, file = "test_cif_event1_4444_hour12.csv", row.names = TRUE)
+write.csv(test_cif_event2, file = "test_cif_event2_4444_hour12.csv", row.names = TRUE)
+write.csv(test_cif_event3, file = "test_cif_event3_4444_hour12.csv", row.names = TRUE)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
