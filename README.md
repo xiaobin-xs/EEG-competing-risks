@@ -1,6 +1,6 @@
 # Neurological Prognostication of Post-Cardiac-Arrest Coma Patients Using EEG Data: A Dynamic Survival Analysis Framework with Competing Risks
 
-This repository contains the demonstration code for the manuscript [link](https://arxiv.org/abs/2308.11645):
+This repository contains the demonstration code for the manuscript [link](https://arxiv.org/abs/2308.11645) (This arXiv version includes minor corrections over the original MLHC draft.):
 
 Shen, Xiaobin, Jonathan Elmer, and George H. Chen. "Neurological Prognostication of Post-Cardiac-Arrest Coma Patients Using EEG Data: A Dynamic Survival Analysis Framework with Competing Risks." *Machine Learning for Healthcare Conference*. PMLR, 2023.
 
@@ -23,4 +23,6 @@ Note that the dynamic survival analysis framework we proposed is compatible with
 To-Do:
 
 - add sample data
+- ~~update `eval-ddrsa.ipynb` file~~
+- ~~add LICENSE~~
 
