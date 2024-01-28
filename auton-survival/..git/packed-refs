@@ -1,0 +1,7 @@
+# pack-refs with: peeled fully-peeled sorted 
+23540b1d5f1d4e25fc0f9756f1e92689a7f14e35 refs/remotes/origin/gpu_support
+cb0b597f0c60358ce4da46992818fee7c917ab61 refs/remotes/origin/master
+59d1aa2988288392df32ff0d08350a38c3fafba3 refs/remotes/origin/normal_loss
+81a1a564e5b65c0c64ad338b5585566037fe0236 refs/remotes/origin/package
+98b5dc59771849bb2cb0574116d84197f21b92a6 refs/remotes/origin/prognostics
+32c504e3e1e69f4f4faf07d296c1cd6e4dfe0a78 refs/remotes/origin/usage_examples
