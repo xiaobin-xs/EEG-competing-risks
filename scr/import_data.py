@@ -97,7 +97,7 @@ def f_construct_dataset(df, feat_list):
 
     grouped  = df.groupby(['id'])
     id_list  = pd.unique(df['id'])
-    max_meas = np.max(grouped.count())[0]
+    max_meas = np.max(grouped.count())
 
     data     = np.zeros([len(id_list), max_meas, len(feat_list)+1])
     pat_info = np.zeros([len(id_list), 7])

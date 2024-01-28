@@ -2,5 +2,6 @@
 *.pickle
 examples/runs/*
 .ipynb_checkpoints/*
-ddh/.ipynb_checkpoints/*
-ddh/__pycache__/*
+scr/.ipynb_checkpoints/*
+scr/__pycache__/*
+examples/DDH-Torch-cr3 copy.ipynb
