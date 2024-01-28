@@ -8,6 +8,8 @@ Note that the dynamic survival analysis framework we propose is compatible with 
 
 We use Python 3.9.7 to test our code.
 
+### Data Prep
+
 To see how we prepare the competing risks dataset from raw data, please see [`prepare-competing-risks-data.ipynb`](data/prepare-competing-risks-data.ipynb)
 
 ### Some DCR Models
@@ -27,5 +29,4 @@ To see how we prepare the competing risks dataset from raw data, please see [`pr
 
 To-Do:
 
-- add sample/synthetic data
-
+- add synthetic data
