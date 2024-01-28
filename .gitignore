@@ -7,3 +7,4 @@ examples/checkpoints/*
 scr/.ipynb_checkpoints/*
 scr/__pycache__/*
 examples/DDH-Torch-cr3 copy.ipynb
+examples/eval-ddh copy.ipynb
