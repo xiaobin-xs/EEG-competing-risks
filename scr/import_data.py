@@ -125,6 +125,13 @@ def f_construct_dataset(df, feat_list):
 
 
 def import_dataset(file, data_mode='eeg'):
+    num_eeg_feat = 72
+    num_static_feat = 43
+    if data_mode == 'eeg':
+        feat_list = ['eeg_'+str(e+1) for e in range(num_eeg_feat)] + ['sta_'+str(s+1) for s in range(num_static_feat)]
+    else:
+        raise ValueError('Not implemented for other data modes')
+    
     df_       = pd.read_csv(file)
     df_['time_left'] = df_.tte - df_.times
     ## discretize time
@@ -132,8 +139,10 @@ def import_dataset(file, data_mode='eeg'):
     all_labels = df_.groupby('id').mean()[['tte', 'label']]
     durations, events = np.array(all_labels.tte), np.array(all_labels.label)
 
+    ## I leave the first 96 hours as unchanged, and discretize the rest with scheme of quantiles
+    ## you might want to change the number of cuts and the scheme
     lower_cuts = np.arange(97) # per hour for the first 4 days or 96 hours, 0 to 96
-    remaining_cuts = make_cuts(n_cuts=120-96, scheme='quantiles', durations=durations[durations>96], events=events[durations>96], min_=96)
+    remaining_cuts = make_cuts(n_cuts=n_cuts-96, scheme='quantiles', durations=durations[durations>96], events=events[durations>96], min_=96)
     cuts = np.concatenate([lower_cuts, remaining_cuts[1:]])
 
     trans_discrete_time = LabTransDiscreteTime(cuts=cuts, scheme='quantiles')
@@ -150,12 +159,6 @@ def import_dataset(file, data_mode='eeg'):
     df_.tte = df_.tte_discrete
     df_.times = df_.times_discrete
     
-    num_eeg_feat = 72
-    num_static_feat = 43
-    if data_mode == 'eeg':
-        feat_list = ['eeg_'+str(e+1) for e in range(num_eeg_feat)] + ['sta_'+str(s+1) for s in range(num_static_feat)]
-    elif data_mode == 'sepsis':
-        feat_list = ['ehr_'+str(e+1) for e in range(55)]
     df_       = df_[['id', 'tte', 'times', 'label', 'tte_original', 'time_left', 'times_original']+feat_list]
     df_org_            = df_.copy(deep=True)
 
@@ -177,7 +180,7 @@ def import_dataset(file, data_mode='eeg'):
     time_original   = pat_info[:,[5]]  #original time when event occurred
     time_to_last    = pat_info[:,[6]]  #original time when event occurred
     # num_Category    = int(np.max(pat_info[:, 1]) * 1.2) #or specifically define larger than the max tte
-    num_Category    = int(np.max(pat_info[:, 1]) + 1)
+    num_Category    = n_cuts # int(np.max(pat_info[:, 1]) + 1)
     num_Event       = len(np.unique(label)) - 1
 
     if num_Event == 1:
