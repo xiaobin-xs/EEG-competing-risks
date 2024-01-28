@@ -1,4 +1,6 @@
 The MIT license below applies to all files in this repository except:
+- all files in the directory `auton-survival`, which is by the CMU Auton Lab
+  and are under an MIT license (see `auton-survival/LICENSE`)
 - `ddh_api.py`, `ddh_torch.py`, `losses.py`, and `utils.py` in the directory 
   `scr`, which are by Vincent Jeanselme (with minor modifications by Xiaobin 
   Shen)
