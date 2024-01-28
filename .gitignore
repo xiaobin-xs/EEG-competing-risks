@@ -7,9 +7,9 @@ examples/checkpoints/*
 .ipynb_checkpoints/*
 scr/.ipynb_checkpoints/*
 scr/__pycache__/*
-# auton-survival/auton_survival/__pycache__/*
-# auton-survival/auton_survival/models/cmhe/__pycache__/*
-# auton-survival/auton_survival/models/cph/__pycache__/*
-# auton-survival/auton_survival/models/dcm/__pycache__/*
-# auton-survival/auton_survival/models/dsm/__pycache__/*
+auton-survival/auton_survival/__pycache__/*
+auton-survival/auton_survival/models/cmhe/__pycache__/*
+auton-survival/auton_survival/models/cph/__pycache__/*
+auton-survival/auton_survival/models/dcm/__pycache__/*
+auton-survival/auton_survival/models/dsm/__pycache__/*
 examples/*copy.ipynb
