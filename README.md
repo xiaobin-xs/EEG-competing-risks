@@ -2,7 +2,7 @@
 
 This repository contains the demonstration code for the manuscript [arXiv](https://arxiv.org/abs/2308.11645) (this arXiv version includes minor corrections over the original MLHC draft):
 
-> Shen, Xiaobin, Jonathan Elmer, and George H. Chen. "Neurological Prognostication of Post-Cardiac-Arrest Coma Patients Using EEG Data: A Dynamic Survival Analysis Framework with Competing Risks." *Machine Learning for Healthcare Conference*. PMLR, 2023.
+> Xiaobin Shen, Jonathan Elmer, and George H. Chen. "Neurological Prognostication of Post-Cardiac-Arrest Coma Patients Using EEG Data: A Dynamic Survival Analysis Framework with Competing Risks." *Machine Learning for Healthcare Conference*. PMLR, 2023.
 
 Note that the dynamic survival analysis framework we propose is compatible with any dynamic competing risks (DCR) models, and we include the code to train and evaluate three DCR models discussed in the paper. See code under the directory of [`examples/`](https://github.com/xiaobin-xs/EEG-competing-risks/tree/master/examples) of how to train and evaluate the model, and generate the visualizations displayed in the paper. Specifically, [`DDH-Torch-cr3.ipynb`](https://github.com/xiaobin-xs/EEG-competing-risks/blob/master/examples/DDH-Torch-cr3.ipynb) and  [`eval-ddh.ipynb`](https://github.com/xiaobin-xs/EEG-competing-risks/blob/master/examples/eval-ddh.ipynb) would be the most relevant ones.
 

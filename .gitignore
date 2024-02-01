@@ -13,3 +13,4 @@ auton-survival/auton_survival/models/cph/__pycache__/*
 auton-survival/auton_survival/models/dcm/__pycache__/*
 auton-survival/auton_survival/models/dsm/__pycache__/*
 examples/*copy.ipynb
+data.zip
